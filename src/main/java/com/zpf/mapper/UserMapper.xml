@@ -3,11 +3,76 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace指用户自定义的命名空间。 -->
 <mapper namespace="com.zpf.mapper.UserMapper">
-<!--    id="save"是唯一的标示符-->
-<!--    parameterType属性指明插入时使用的参数类型-->
-<!--    useGeneratedKeys="true"表示使用数据库的自动增长策略-->
+    <!--    id="save"是唯一的标示符-->
+    <!--    parameterType属性指明插入时使用的参数类型-->
+    <!--    useGeneratedKeys="true"表示使用数据库的自动增长策略-->
     <insert id="save" parameterType="com.zpf.domain.User" useGeneratedKeys="true">
      INSERT INTO tb_user(NAME,SEX,AGE)	VALUES(#{NAME},#{SEX},#{AGE})
     </insert>
+    <insert id="saveUser" parameterType="user" useGeneratedKeys="true" keyProperty="id">
+     INSERT INTO tb_user(NAME,SEX,AGE)	VALUES(#{NAME},#{SEX},#{AGE})
+    </insert>
+    <select id="selectUser" parameterType="int" resultType="user">
+        SELECT *FROM tb_user WHERE ID =#{ID}
+    </select>
+    <update id="modifyUser" parameterType="user">
+        UPDATE tb_user
+        SET NAME=#{NAME},SEX=#{SEX},AGE=#{AGE}
+        WHERE ID = #{ID}
+    </update>
+    <delete id="removeUser" parameterType="int">
+        DELETE FROM tb_user WHERE ID=#{ID}
+    </delete>
+    <select id="selectUserToMap" resultType="map">
+        SELECT  *FROM tb_user
+    </select>
+    <!--    映射对象-pojo和表内字段-->
+    <resultMap id="userResultMap" type="user">
+        <id property="ID" column="user_id"/>
+        <result property="NAME" column="NAME"/>
+        <result property="SEX" column="SEX"/>
+        <result property="AGE" column="AGE"/>
+    </resultMap>
+    <!--    引用上面的映射关系-->
+    <select id="selectUserMap" resultMap="userResultMap">
+        SELECT *FROM tb_user
+    </select>
+    <!--    映射学生对象的ResultMap-->
+    <resultMap id="studentResultMap" type="com.zpf.domain.Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <!--        关联映射-->
+        <association property="clazz" column="clazz_id"
+                     javaType="com.zpf.domain.Clazz" select="selectClazzWithId"/>
+    </resultMap>
+    <!--        根据班级id查询班级-->
+    <select id="selectClazzWithId" resultType="com.zpf.domain.Clazz">
+        SELECT *FROM tb_clazz WHERE id=#{id}
+    </select>
+    <!--    查询所有学生的信息-->
+    <select id="selectStudent" resultMap="studentResultMap">
+    SELECT *FROM tb_student
+</select>
+
+
+    <!--        映射班级对象的resultMap-->
+    <resultMap id="clazzResultMap" type="com.zpf.domain.Clazz">
+        <id property="id" column="id"/>
+        <result property="code" column="code"/>
+        <!--        班级的学生属性,因为一个班级有多个学生,所以该属性是一个集合-->
+        <collection property="students" javaType="ArrayList"
+                    column="id" ofType="com.zpf.domain.Student"
+                    select="selectStudentWithId"/>
+    </resultMap>
+    <!--        根据id查找学生-->
+    <select id="selectStudentWithId" resultType="com.zpf.domain.Student">
+    SELECT *FROM tb_student WHERE clazz_id=#{id}
+    </select>
+    <!--    查询所有班级信息-->
+    <select id="selectClazz" resultMap="clazzResultMap">
+        SELECT *FROM tb_clazz
+    </select>
 
 </mapper>

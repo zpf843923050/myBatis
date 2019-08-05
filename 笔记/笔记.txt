@@ -7,6 +7,7 @@
     2)UserMapper.xml//多个映射配置文件其与POJO对应
       namespace标签属性代表sql信息的路径(使用包名+配置文件名缩写的形式命名)
       id属性代表了唯一的sql语句
+
 2.使用(测试类)
      1.读取mybatis-conf配置文件(通过org.apache.ibatis.io.Resources提供的getResourceAsStream方法)
      2.建立SqlSessionFactory.

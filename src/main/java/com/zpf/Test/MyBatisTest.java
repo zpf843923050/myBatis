@@ -16,11 +16,11 @@ public class MyBatisTest {
         //初始化mybatis,创建SqlSessionFactory类的实例
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         //创建session实例
-        SqlSession session=sqlSessionFactory.openSession();
+        SqlSession session = sqlSessionFactory.openSession();
         //创建User对3象
-        User user =new User("a","男",22);
+        User user = new User("张鹏飞", "男", 22);
         //插入数据
-        session.insert("com.zpf.mapper.UserMapper.save",user);
+        session.insert("com.zpf.mapper.UserMapper.save", user);
         //提交事务
         session.commit();
         //关闭session

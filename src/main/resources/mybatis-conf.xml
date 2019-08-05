@@ -8,6 +8,10 @@
     <settings>
         <setting name="logImpl" value="LOG4J"/>
     </settings>
+    <!--    为domain里的User设置别名,方便在Mapper中调用-->
+    <typeAliases>
+        <typeAlias alias="user" type="com.zpf.domain.User"/>
+    </typeAliases>
     <!--    环境配置，即连接数据库-->
     <environments default="mysql">
         <environment id="mysql">
@@ -16,7 +20,8 @@
             <!--  dataSource指数据源配置，POOLED是JDBC连接对象的数据源连接池的实现。 -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;serverTimezone=UTC&amp;useSSL=false"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;serverTimezone=UTC&amp;useSSL=false"/>
                 <property name="username" value="root"/>
                 <property name="password" value="123456"/>
             </dataSource>
@@ -25,6 +30,12 @@
     <!--    Mappers告诉myBatis去哪里找持久化类的映射文件-->
     <mappers>
         <mapper resource="com/zpf/mapper/UserMapper.xml"/>
+
+        <mapper resource="com/zpf/mapper/PersonMapper.xml"/>
+
+        <mapper resource="com/zpf/mapper/CardMapper.xml"/>
+
     </mappers>
+
 </configuration>
 

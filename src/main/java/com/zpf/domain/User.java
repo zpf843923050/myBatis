@@ -1,5 +1,7 @@
 package com.zpf.domain;
 
+import sun.management.Agent;
+
 public class User {
     //用户标识
     private Integer ID;
@@ -53,5 +55,10 @@ public class User {
 
     public void setAGE(Integer AGE) {
         this.AGE = AGE;
+    }
+    @Override
+    public String toString() {
+        return "User [id=" + ID + ", name=" + NAME + ", sex=" + SEX + ", age="
+                + AGE + "]";
     }
 }

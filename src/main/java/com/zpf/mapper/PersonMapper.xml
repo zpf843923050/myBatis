@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指用户自定义的命名空间。 -->
+<mapper namespace="com.zpf.mapper.PersonMapper">
+    <!--根据id查询Person返回ResultMap-->
+    <select id="selectPersonById" parameterType="int"
+            resultMap="personMapper">
+            SELECT *FROM tb_person WHERE id=#{id}
+</select>
+    <resultMap id="personMapper" type="com.zpf.domain.Person">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <!--        一对一关联-->
+        <association property="card" column="card_id"
+                     select="com.zpf.mapper.CardMapper.selectCardById"
+                     javaType="com.zpf.domain.Card"/>
+    </resultMap>
+</mapper>
