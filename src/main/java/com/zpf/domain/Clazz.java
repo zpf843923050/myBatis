@@ -8,7 +8,9 @@ public class Clazz {
     //班级代码
     private String code;
 
-    private List<Student>students;
+    //班级名称
+    private String name;
+    private List<Student>students;//一个班级有多个学生,用List<Student>来映射一对多的关系,表示一个班级有多个学生
 
     public List<Student> getStudents() {
         return students;
@@ -16,6 +18,14 @@ public class Clazz {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCode() {

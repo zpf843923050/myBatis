@@ -7,6 +7,9 @@
     <!--    指定mybatis的日志的具体实现-->
     <settings>
         <setting name="logImpl" value="LOG4J"/>
+        <!--        延迟加载生效配置以下两个属性-->
+        <setting name="lazyLoadingEnabled" value="true"/><!--延迟加载的全局开关,所有关联对象延迟加载-->
+        <setting name="aggressiveLazyLoading" value="false"/><!--启用时会使带有延迟加载属性的对象立即加载,反之按需加载-->
     </settings>
     <!--    为domain里的User设置别名,方便在Mapper中调用-->
     <typeAliases>
@@ -34,6 +37,10 @@
         <mapper resource="com/zpf/mapper/PersonMapper.xml"/>
 
         <mapper resource="com/zpf/mapper/CardMapper.xml"/>
+
+        <mapper resource="com/zpf/mapper/StudentMapper.xml"/>
+
+        <mapper resource="com/zpf/mapper/ClazzMapper.xml"/>
 
     </mappers>
 
