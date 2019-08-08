@@ -1,6 +1,6 @@
 package com.zpf.Test;
 
-import com.zpf.domain.User;
+import com.zpf.domain.UserDemo;
 import com.zpf.factory.ZPFSqlSessionFactory;
 import org.apache.ibatis.session.SqlSession;
 
@@ -13,11 +13,11 @@ public class ResultMapTest {
     public static void main(String[] args) {
         //获取Session实例
         SqlSession session = ZPFSqlSessionFactory.getSqlSession();
-        List<User> user_list
+        List<UserDemo> user_Demo_list
                 = session.selectList("com.zpf.mapper.UserMapper.selectUserMap");
         //遍历user_list
-        for (User user : user_list) {
-            System.out.println(user);
+        for (UserDemo userDemo : user_Demo_list) {
+            System.out.println(userDemo);
         }
         session.commit();
         session.close();

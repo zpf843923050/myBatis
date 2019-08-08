@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指用户自定义的命名空间。 -->
+<mapper namespace="com.zpf.mapper.EmployeeMapper">
+    <select id="selectEmployeeByIdlike" resultType="com.zpf.domain.Employee">
+        select *FROM tb_employee WHERE state='ACTIVE'
+        <!--    可选条件,如果传进来的参数有id属性,则加上id查询条件-->
+        <if test="id!=null">
+            and id=#{id}
+        </if>
+    </select>
+    <select id="selectEmployeeByLoginlike" resultType="com.zpf.domain.Employee">
+        select *FROM tb_employee WHERE state='ACTIVE'
+        <!--    可选条件,如果传进来的参数有id属性,则加上id查询条件-->
+        <if test="loginname!=null and password!=null ">
+            and loginname=#{loginname} and PASSWORD=#{password}
+        </if>
+    </select>
+    <select id="selectEmployeeChoose" parameterType="hashmap" resultType="com.zpf.domain.Employee">
+        select *FROM tb_employee
+        WHERE state='ACTIVE'
+        <!--                    如果传入id就根据id查询,没有id则根据loginname和password查询,否则根据sex为男查询-->
+        <choose>
+            <when test="id!=null ">
+                and id=#{id}
+            </when>
+            <when test="loginname!=null and password !=null ">
+                and loginname=#{loginname} and PASSWORD=#{password}
+            </when>
+            <otherwise>
+                and SEX='男'
+            </otherwise>
+
+        </choose>
+
+    </select>
+    <select id="selectEmployeeWithId" parameterType="int" resultType="com.zpf.domain.Employee">
+        SELECT *FROM tb_employee WHERE id=#{id}
+    </select>
+
+
+    <!--    动态更新员工信息-->
+    <update id="updateEmployeeIfNecessary" parameterType="com.zpf.domain.Employee">
+        update tb_employee
+        <set>
+            <if test="loginname!=null ">loginname=#{loginname},</if>
+            <if test="password!=null ">password=#{password},</if>
+            <if test="name!=null ">name =#{name},</if>
+            <if test="sex!=null ">sex=#{sex},</if>
+            <if test="age!=null ">age=#{age},</if>
+            <if test="phone!=null ">phone=#{phone},</if>
+            <if test="sal!=null ">sal=#{sal},</if>
+            <if test="state!=null ">state=#{state}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="selectEmployeeIn" resultType="com.zpf.domain.Employee">
+        SELECT *FROM tb_employee WHERE id IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="selectEmployeeByLikeName" resultType="com.zpf.domain.Employee">
+        <bind name="pattern" value="'%'+_parameter.getName()+'%'"/>
+        SELECT *FROM tb_employee
+        WHERE loginname LIKE #{pattern}
+
+    </select>
+</mapper>

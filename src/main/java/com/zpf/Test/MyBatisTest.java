@@ -1,6 +1,6 @@
 package com.zpf.Test;
 
-import com.zpf.domain.User;
+import com.zpf.domain.UserDemo;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -18,9 +18,9 @@ public class MyBatisTest {
         //创建session实例
         SqlSession session = sqlSessionFactory.openSession();
         //创建User对3象
-        User user = new User("张鹏飞", "男", 22);
+        UserDemo userDemo = new UserDemo("张鹏飞", "男", 22);
         //插入数据
-        session.insert("com.zpf.mapper.UserMapper.save", user);
+        session.insert("com.zpf.mapper.UserMapper.save", userDemo);
         //提交事务
         session.commit();
         //关闭session

@@ -6,16 +6,16 @@
     <!--    id="save"是唯一的标示符-->
     <!--    parameterType属性指明插入时使用的参数类型-->
     <!--    useGeneratedKeys="true"表示使用数据库的自动增长策略-->
-    <insert id="save" parameterType="com.zpf.domain.User" useGeneratedKeys="true">
+    <insert id="save" parameterType="com.zpf.domain.UserDemo" useGeneratedKeys="true">
      INSERT INTO tb_user(NAME,SEX,AGE)	VALUES(#{NAME},#{SEX},#{AGE})
     </insert>
-    <insert id="saveUser" parameterType="user" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveUser" parameterType="userDemo" useGeneratedKeys="true" keyProperty="id">
      INSERT INTO tb_user(NAME,SEX,AGE)	VALUES(#{NAME},#{SEX},#{AGE})
     </insert>
-    <select id="selectUser" parameterType="int" resultType="user">
+    <select id="selectUser" parameterType="int" resultType="userDemo">
         SELECT *FROM tb_user WHERE ID =#{ID}
     </select>
-    <update id="modifyUser" parameterType="user">
+    <update id="modifyUser" parameterType="userDemo">
         UPDATE tb_user
         SET NAME=#{NAME},SEX=#{SEX},AGE=#{AGE}
         WHERE ID = #{ID}
@@ -27,7 +27,7 @@
         SELECT  *FROM tb_user
     </select>
     <!--    映射对象-pojo和表内字段-->
-    <resultMap id="userResultMap" type="user">
+    <resultMap id="userResultMap" type="userDemo">
         <id property="ID" column="user_id"/>
         <result property="NAME" column="NAME"/>
         <result property="SEX" column="SEX"/>

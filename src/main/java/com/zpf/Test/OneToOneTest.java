@@ -2,16 +2,18 @@ package com.zpf.Test;
 
 import com.zpf.domain.Clazz;
 import com.zpf.domain.Person;
+import com.zpf.domain.Student;
 import com.zpf.mapper.ClazzMapper;
 import com.zpf.mapper.PersonMapper;
+import com.zpf.mapper.StudentMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import sun.plugin2.os.windows.SECURITY_ATTRIBUTES;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class OneToOneTest {
     public static void main(String[] args) throws IOException {
@@ -29,6 +31,8 @@ public class OneToOneTest {
         System.out.println(person);
         System.out.println(person.getCard());
         testSelectClazzById(session);
+        System.out.println("---------------------------");
+        testSelectStudentByClazzId(session);
         session.commit();
         session.close();
     }
@@ -44,6 +48,20 @@ public class OneToOneTest {
         //调用selectClazzById方法
         Clazz clazz = cm.selectClazzById(1);
         //查看查询到的Clazz对象信息
-        System.out.println(clazz.getId()+clazz.getCode()+clazz.getName());
+        System.out.println("测试一对多");
+        System.out.println(clazz.getId() + " "+ clazz.getCode() + " "+clazz.getName());
+        //查看clazz对象关联的学生信息
+        List<Student> students = clazz.getStudents();
+        for (Student stu : students)
+            System.out.println(stu);
+    }
+    public static void testSelectStudentByClazzId(SqlSession session){
+        // 测试多对一，查询学生Student（多）的时候级联查询 班级Clazz（一）
+        System.out.println("测试多对一");
+        //获得ClazzMapper接口的代理对象
+        StudentMapper sm = session.getMapper(StudentMapper.class);
+        Student students=sm.selectStudentById(1);
+        System.out.println(students);
+        System.out.println(students.getClazz());
     }
 }

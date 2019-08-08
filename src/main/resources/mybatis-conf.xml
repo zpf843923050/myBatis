@@ -13,7 +13,7 @@
     </settings>
     <!--    为domain里的User设置别名,方便在Mapper中调用-->
     <typeAliases>
-        <typeAlias alias="user" type="com.zpf.domain.User"/>
+        <typeAlias alias="userDemo" type="com.zpf.domain.UserDemo"/>
     </typeAliases>
     <!--    环境配置，即连接数据库-->
     <environments default="mysql">
@@ -41,6 +41,15 @@
         <mapper resource="com/zpf/mapper/StudentMapper.xml"/>
 
         <mapper resource="com/zpf/mapper/ClazzMapper.xml"/>
+
+        <mapper resource="com/zpf/mapper_2/ArticleMapper.xml"/>
+        <mapper resource="com/zpf/mapper_2/OrderMapper.xml"/>
+        <mapper resource="com/zpf/mapper_2/UserMapper.xml"/>
+
+
+
+
+        <mapper resource="com/zpf/mapper/EmployeeMapper.xml"/>
 
     </mappers>
 

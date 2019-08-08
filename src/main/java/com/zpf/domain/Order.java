@@ -1,0 +1,69 @@
+package com.zpf.domain;
+
+import java.util.List;
+
+public class Order {
+    private Integer id;//订单id主键
+    private String code;//订单编号
+    private Double total;//订单总金额
+    //订单和用户是多对一关系,即一个用户可以有多个订单.
+    private User user;
+    //订单和商品是多对多关系,即一个订单有多个商品.
+    private List<Article> articles;
+
+    public Order() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    public Order(String code, Double total) {
+        this.code = code;
+        this.total = total;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
+
+    @Override
+    public String toString() {
+        return "Order [id=" + id + ", code=" + code + ", total=" + total + "]";
+    }
+
+}
