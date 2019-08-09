@@ -74,5 +74,4 @@
     <select id="selectClazz" resultMap="clazzResultMap">
         SELECT *FROM tb_clazz
     </select>
-
 </mapper>

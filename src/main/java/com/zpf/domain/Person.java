@@ -2,12 +2,25 @@ package com.zpf.domain;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
     private Integer id;//主键id
     private String name;//姓名
     private String sex;//性别
     private Integer age;//年龄
     private Card card;//关联
+
+    public Person() {
+        super();
+    }
+
+    public Person(String name, String sex, Integer age, Card card) {
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.card = card;
+    }
 
     public Card getCard() {
         return card;

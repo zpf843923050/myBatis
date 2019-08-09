@@ -1,9 +1,10 @@
 package com.zpf.domain;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
     private Integer id;//用户id,主键
     private String username;//用户名
     private String loginname;//登录名

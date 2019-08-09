@@ -3,6 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace指用户自定义的命名空间。 -->
 <mapper namespace="com.zpf.mapper_2.UserMapper">
+<!--    二级缓存的配置 每个60s刷新一次,最大存储对象512个 返回对象是只读的-->
+    <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"/>
 <resultMap id="userResultMap" type="com.zpf.domain.User">
     <id property="id" column="id"/>
     <result property="username" column="username"/>
@@ -23,5 +25,16 @@
     <select id="selectUserById" parameterType="int" resultMap="userResultMap">
         SELECT *FROM tb_user WHERE id=#{id}
     </select>
-
+    <!--    根据id查询User-->
+    <select id="selectUser2ById" parameterType="int" resultType="com.zpf.domain.User">
+    SELECT  *FROM tb_user WHERE id=#{id}
+</select>
+    <!--    查询所有User-->
+    <select id="selectAllUser"  resultType="com.zpf.domain.User">
+        select *from tb_user
+    </select>
+    <!--    根据id删除user-->
+    <delete id="deleteUserById" parameterType="int">
+        delete from tb_user where id=#{id}
+    </delete>
 </mapper>
